@@ -60,37 +60,37 @@ int does_have_smaller(int *stack, int elements_nb, int half)
 
 }
 
-int find_closest_smaller(int *stack, int elements_nb, int half)
-{
-	int i;
-	int closest;
-	int rev_closest;
-	int el_cpy;
+// int find_closest_smaller(int *stack, int elements_nb, int half)
+// {
+// 	int i;
+// 	int closest;
+// 	int rev_closest;
+// 	int el_cpy;
 
-	// el_cpy = elements_nb;
-	rev_closest = 1;
-	i = 0;
-	while(i < elements_nb)
-		{
-			if (stack[i] < half)
-			{
-				closest = i;
-				break;
-			}
-			i++;
-		}
-	while(elements_nb--)
-		{
-			if (stack[elements_nb] < half)
-				break;
-			rev_closest++;
+// 	// el_cpy = elements_nb;
+// 	rev_closest = 1;
+// 	i = 0;
+// 	while(i < elements_nb)
+// 		{
+// 			if (stack[i] < half)
+// 			{
+// 				closest = i;
+// 				break;
+// 			}
+// 			i++;
+// 		}
+// 	while(elements_nb--)
+// 		{
+// 			if (stack[elements_nb] < half)
+// 				break;
+// 			rev_closest++;
 
-		}
-	if (closest < rev_closest)
-		return(1);
-	else
-		return 0;
-}
+// 		}
+// 	if (closest < rev_closest)
+// 		return(1);
+// 	else
+// 		return 0;
+// }
 
 int find_closest_biggest(int *stack, int elements_nb, int biggest)
 {
@@ -206,7 +206,7 @@ int main(int argc, char *argv[])
 	stack = handle_arguments(argc, argv, &elements_nb);
 	stack_b = malloc(elements_nb * sizeof(int));
 	sort(stack, stack_b, &elements_nb, &b_elements_nb);
-	testing(stack, stack_b, &elements_nb, &b_elements_nb);
+	//testing(stack, stack_b, &elements_nb, &b_elements_nb);
 	free(stack);
 	free(stack_b);
 	return (0);
