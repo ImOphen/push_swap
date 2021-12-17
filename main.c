@@ -1,30 +1,5 @@
 #include "push_swap.h"
 
-void rotate_small(int *stack, int elements_nb)
-{
-	int smallest;
-	int i;
-	int smallest_index;
-
-	i = 0;
-	smallest = stack[0];
-	while(i < elements_nb)
-	{
-		if (smallest > stack[i])
-		{
-			smallest = stack[i];
-			smallest_index = i;
-		}
-		i++;
-	}
-	if (smallest_index > elements_nb / 2)
-		while(smallest != stack[0])
-			rra(stack, elements_nb);
-	else
-		while(smallest != stack[0])
-			ra(stack, elements_nb);
-}
-
 int is_sorted(int *stack, int elements_nb)
 {
 	int i;
@@ -39,29 +14,132 @@ int is_sorted(int *stack, int elements_nb)
 	return(1);
 }
 
-void rotate_and_push(int *stack, int *stack_b, int *elements_nb, int *b_elements_nb)
+int sort_array_half(int *stack, int elements_nb)
 {
+	int *tab;
 	int i;
-	int elements_nb_copy;
+	int j;
+	int tmp;
+	int half;
 
 	i = 0;
-	elements_nb_copy = *elements_nb;
-		while(i < elements_nb_copy)
+	tab = malloc(elements_nb * sizeof(int));
+	ft_memmove_int(tab,stack, elements_nb);
+	while(i < elements_nb)
+	{
+		j = 0;
+		while(j < elements_nb)
 		{
-			rotate_small(stack, *elements_nb);
-			pb(stack, stack_b, elements_nb, b_elements_nb);
-		i++;
+			if (tab[i] > tab[j])
+			{
+				tmp = tab[i];
+				tab[i] = tab[j];
+				tab[j] = tmp;
+			}
+			j++;
 		}
+		i++;
+	}
+	half = tab[elements_nb / 2];
+	free(tab);
+	return (half);
+}
+
+int does_have_smaller(int *stack, int elements_nb, int half)
+{
+	int i;
+
+	i = 0;
+	while (i < elements_nb)
+	{
+		if(stack[i] < half)
+			return(1);
+		i++;
+	}
+	return (0);
+
+}
+
+void put_bigger_to_b(int *stack, int *stack_b, int *elements_nb, int *b_elements_nb)
+{
+	int half;
+
+	while(*elements_nb > 2)
+		{
+			half = sort_array_half(stack, *elements_nb);
+			while((does_have_smaller(stack, *elements_nb, half)))
+			{
+				if (stack[0] < half)
+					pb(stack, stack_b, elements_nb, b_elements_nb);
+				else
+					ra(stack, *elements_nb);
+			}
+		}
+	// while(*elements_nb >= 2)
+	// 	{
+	// 		half = sort_array_half(stack, *elements_nb);
+	// 		while((does_have_smaller(stack, *elements_nb, half)))
+	// 		{
+	// 			if (stack[0] < half)
+	// 				pb(stack, stack_b, elements_nb, b_elements_nb);
+	// 			else
+	// 				ra(stack, *elements_nb);
+	// 		}
+	// 	}
+}
+
+void sort_to_bigger(int *stack_b,int b_elements_nb)
+{
+	int i;
+	int biggest;
+
+	i = 0;
+	biggest = stack_b[0];
+	while(i < b_elements_nb)
+	{
+		if(biggest < stack_b[i])
+			biggest = stack_b[i];
+		i++;
+	}
+	i = 0;
+	while (i < b_elements_nb)
+		{
+			if (stack_b[i] == biggest)
+				break;
+			i++;
+		}
+	if (i < b_elements_nb / 2)
+		while(stack_b[0] != biggest)
+			rb(stack_b, b_elements_nb);
+	else
+		while(stack_b[0] != biggest)
+			rrb(stack_b, b_elements_nb);
+}
+
+
+void push_back_to_a(int *stack, int *stack_b, int *elements_nb, int *b_elements_nb)
+{
+	while(*b_elements_nb)
+	{
+		sort_to_bigger(stack_b, *b_elements_nb);
+		pa(stack, stack_b, elements_nb, b_elements_nb);
+	}
 }
 
 void sort(int *stack, int *stack_b, int *elements_nb, int *b_elements_nb)
 {
-	if (!(is_sorted(stack, *elements_nb)))
+
+	if (*elements_nb <= 2)
 	{
-		rotate_small(stack, *elements_nb);
-		rotate_and_push(stack, stack_b, elements_nb, b_elements_nb);
-		while(*b_elements_nb)
-			pa(stack,stack_b, elements_nb, b_elements_nb);
+		if (*elements_nb == 1)
+			return ;
+		if (stack[0] > stack[1])
+			sa(stack);
+	}
+	else if (!(is_sorted(stack, *elements_nb)))
+	{
+		put_bigger_to_b(stack, stack_b, elements_nb, b_elements_nb);
+		push_back_to_a(stack, stack_b, elements_nb, b_elements_nb);
 	}
 	else
 	{
