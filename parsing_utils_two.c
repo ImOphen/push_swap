@@ -3,6 +3,8 @@
 void exit_error(void)
 {
 	write(2,"Error\n", 6);
+	while(1)
+		continue;
 	exit(-1);
 }
 
