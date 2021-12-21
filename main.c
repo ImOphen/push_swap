@@ -206,7 +206,7 @@ int main(int argc, char *argv[])
 	stack = handle_arguments(argc, argv, &elements_nb);
 	stack_b = malloc(elements_nb * sizeof(int));
 	sort(stack, stack_b, &elements_nb, &b_elements_nb);
-	testing(stack, stack_b, &elements_nb, &b_elements_nb);
+	//testing(stack, stack_b, &elements_nb, &b_elements_nb);
 	free(stack);
 	free(stack_b);
 	return (0);

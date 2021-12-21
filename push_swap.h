@@ -46,4 +46,6 @@ int		*fill_stack(char **argv, int *elements_nb);
 void	check_for_duplicates(int *stack, int elements_nb);
 int		*handle_arguments(int argc, char *argv[], int *elements_nb);
 
+/***** checker utils *****/
+char	*get_next_line(int fd);
 #endif

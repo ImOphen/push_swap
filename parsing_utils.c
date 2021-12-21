@@ -82,12 +82,12 @@ void check_for_numbers(char **argv)
 		while (argv[i][j])
 		{
 			if (argv[i][j] != ' ' && argv[i][j] != '-' && !(ft_isdigit(argv[i][j])))
-				printf("1"),exit_error();
+				exit_error();
 			if (argv[i][j] == '-' && !(ft_isdigit(argv[i][j + 1])))
-				printf("7"),exit_error();
+				exit_error();
 			if ((argv[i][j] == '-' && argv[i][j + 1] == '-')
 					|| (ft_isdigit(argv[i][j]) && argv[i][j + 1] == '-'))
-				printf("2"),exit_error();
+				exit_error();
 			j++;
 		}
 		i++;

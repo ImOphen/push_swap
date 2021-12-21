@@ -3,8 +3,6 @@
 void exit_error(void)
 {
 	write(2,"Error\n", 6);
-	while(1)
-		continue;
 	exit(-1);
 }
 
@@ -47,10 +45,10 @@ char	*arguments_join(char **argv)
 		// printf("%s\n",argv[i++]);
 		arguments_with_space = ft_strjoin(arguments, " ");
 		if (!arguments_with_space)
-			printf("6"),exit_error();
+			exit_error();
 		arguments = ft_strjoin(arguments_with_space, argv[i]);
 		if (!arguments)
-			printf("3"),exit_error();
+			exit_error();
 		i++;
 	}
 	return(arguments);

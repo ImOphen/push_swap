@@ -14,7 +14,7 @@ void	check_for_duplicates(int *stack, int elements_nb)
 			if (stack[i] == stack[j] && i != j)
 			{
 				free(stack);
-				printf("8"),exit_error();
+				exit_error();
 			}
 			j++;
 		}
@@ -27,7 +27,7 @@ int *handle_arguments(int argc, char *argv[], int *elements_nb)
 	int *stack;
 
 	if (argc < 2)
-		printf("4"),exit_error();
+		exit_error();
 	check_for_numbers(argv);
 	stack = fill_stack(argv, elements_nb);
 	check_for_duplicates(stack, *elements_nb);
@@ -65,6 +65,6 @@ int	ft_atoi(const char *str)
 		i++;
 	}
 	if ((count * sign) > INT_MAX || (count * sign < INT_MIN))
-		printf("9"),exit_error();
+		exit_error();
 	return (count * sign);
 }
