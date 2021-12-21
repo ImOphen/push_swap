@@ -61,7 +61,6 @@ void read_from_pushswap(int *stack, int *stack_b, int *elements_nb, int *b_eleme
 			rra(stack, *elements_nb);
 		else
 			exit_error();
-		//printf("%s", line);
 		free(line);
 		line = get_next_line(0);
 	}
@@ -78,20 +77,8 @@ int main(int argc, char *argv[])
 	stack = handle_arguments(argc, argv, &elements_nb);
 	stack_b = malloc(elements_nb * sizeof(int));
 	read_from_pushswap(stack, stack_b, &elements_nb, &b_elements_nb);
-	//testing(stack, stack_b, &elements_nb, &b_elements_nb);
 	if (is_sorted(stack, elements_nb))
 		write(1,"OK", 2);
 	else
 		write(1, "KO", 2);
-}
-
-void testing(int *stack, int *stack_b, int *elements_nb, int *b_elements_nb)
-{
-	int i = 0;
-	while (i < *elements_nb)
-		printf("STACK A NUM %d : %d\n",i, stack[i]),i++;
-	i = 0;
-	printf("---------\n");
-	while (i < *b_elements_nb)
-		printf("STACK B NUM %d : %d\n",i, stack_b[i]),i++;
 }
