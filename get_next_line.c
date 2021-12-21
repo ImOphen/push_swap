@@ -17,9 +17,25 @@ char *ft_strdup(char *str)
 	return (line);
 }
 
+void	ft_bzero(void *s, size_t n)
+{
+	size_t	i;
+	char	*ps;
+
+	ps = (char *)s;
+	i = 0;
+	while (n)
+	{
+		ps[i] = 0;
+		i++;
+		n--;
+	}
+}
+
 char *get_next_line(int fd)
 {
-	char line[8000000] = {0};
+	char line[100];
+	ft_bzero(line, 100);
 	int ret = 1;
 	char c;
 	int i = 0;
