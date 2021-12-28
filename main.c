@@ -1,5 +1,12 @@
 #include "push_swap.h"
 
+typedef struct s_quarters{
+	int one;
+	int two;
+	int three;
+	int four;
+}	t_quarters;
+
 int is_sorted(int *stack, int elements_nb)
 {
 	int i;
@@ -14,13 +21,13 @@ int is_sorted(int *stack, int elements_nb)
 	return(1);
 }
 
-int sort_array_half(int *stack, int elements_nb)
+t_quarters sort_array_half(int *stack, int elements_nb)
 {
 	int *tab;
 	int i;
 	int j;
 	int tmp;
-	int half;
+	t_quarters quarters;
 
 	i = 0;
 	tab = malloc(elements_nb * sizeof(int));
@@ -30,7 +37,7 @@ int sort_array_half(int *stack, int elements_nb)
 		j = 0;
 		while(j < elements_nb)
 		{
-			if (tab[i] > tab[j])
+			if (tab[i] < tab[j])
 			{
 				tmp = tab[i];
 				tab[i] = tab[j];
@@ -40,117 +47,56 @@ int sort_array_half(int *stack, int elements_nb)
 		}
 		i++;
 	}
-	half = tab[elements_nb / 2];
+	quarters.one = tab[elements_nb / 4 - 1];
+	quarters.two = tab[elements_nb / 2 - 1];
+	quarters.three = tab[elements_nb / 4 * 3 - 1];
+	quarters.four = tab[elements_nb - 1];
+
+	// i = 0;
+	// while (i < elements_nb)
+	// 	printf("%d ", tab[i++]);
 	free(tab);
-	return (half);
+	return (quarters);
 }
 
-int does_have_smaller(int *stack, int elements_nb, int half)
-{
-	int i;
-
-	i = 0;
-	while (i < elements_nb)
-	{
-		if(stack[i] < half)
-			return(1);
-		i++;
-	}
-	return (0);
-
-}
-
-int find_closest_biggest(int *stack, int elements_nb, int biggest)
-{
-	int i;
-	int closest;
-	int rev_closest = 1;
-
-	i = 0;
-	while(i < elements_nb)
-		{
-			if (stack[i] == biggest)
-			{
-				closest = i;
-				break;
-			}
-			i++;
-		}
-	while(elements_nb--)
-		{
-			if (stack[elements_nb] == biggest)
-				break;
-			rev_closest++;
-
-		}
-	if (closest < rev_closest)
-		return(1);
-	else
-		return 0;
-}
-
-void put_bigger_to_b(int *stack, int *stack_b, int *elements_nb, int *b_elements_nb)
-{
-	int half;
-
-	while(*elements_nb > 2)
-		{
-			half = sort_array_half(stack, *elements_nb);
-			while((does_have_smaller(stack, *elements_nb, half)))
-			{
-				if (stack[0] < half)
-					pb(stack, stack_b, elements_nb, b_elements_nb);
-				else
-					ra(stack, *elements_nb);
-			}
-		}
-	if (stack[0] > stack[1])
-		sa(stack);
-}
-
-void sort_to_bigger(int *stack_b,int b_elements_nb)
-{
-	int i;
-	int biggest;
-
-	i = 0;
-	biggest = stack_b[0];
-	while(i < b_elements_nb)
-	{
-		if(biggest < stack_b[i])
-			biggest = stack_b[i];
-		i++;
-	}
-	if (find_closest_biggest(stack_b, b_elements_nb, biggest))
-		while(stack_b[0] != biggest)
-			rb(stack_b, b_elements_nb);
-	else
-		while(stack_b[0] != biggest)
-			rrb(stack_b, b_elements_nb);
-}
-
-
-void push_back_to_a(int *stack, int *stack_b, int *elements_nb, int *b_elements_nb)
-{
-	while(*b_elements_nb)
-	{
-		sort_to_bigger(stack_b, *b_elements_nb);
-		pa(stack, stack_b, elements_nb, b_elements_nb);
-	}
-}
 
 void sort(int *stack, int *stack_b, int *elements_nb, int *b_elements_nb)
 {
+	int el_nb_cpy;
 
+	el_nb_cpy = *elements_nb;
 	if (*elements_nb < 2)
 			return ;
 	else if (!(is_sorted(stack, *elements_nb)))
 	{
-		put_bigger_to_b(stack, stack_b, elements_nb, b_elements_nb);
-		push_back_to_a(stack, stack_b, elements_nb, b_elements_nb);
+		t_quarters quarters;
+		quarters = sort_array_half(stack, *elements_nb);
+		while(*elements_nb > el_nb_cpy / 4 * 3)
+		{
+			if (stack[0] > quarters.three)
+				pb(stack, stack_b, elements_nb, b_elements_nb);
+			else
+				ra(stack, *elements_nb);
+		}
+		while(*elements_nb > el_nb_cpy / 2)
+		{
+			if (stack[0] > quarters.two)
+				pb(stack, stack_b, elements_nb, b_elements_nb);
+			else
+				ra(stack, *elements_nb);
+		}
+		while(*elements_nb > el_nb_cpy / 4)
+		{
+			if (stack[0] > quarters.one)
+				pb(stack, stack_b, elements_nb, b_elements_nb);
+			else
+				ra(stack, *elements_nb);
+		}
+		//push_back_to_a_2(stack, stack_b, elements_nb, b_elements_nb);
 	}
 	else
 	{
+		(void)b_elements_nb;
 		free(stack_b);
 		free(stack);
 		exit (1);
@@ -168,7 +114,19 @@ int main(int argc, char *argv[])
 	stack = handle_arguments(argc, argv, &elements_nb);
 	stack_b = malloc(elements_nb * sizeof(int));
 	sort(stack, stack_b, &elements_nb, &b_elements_nb);
+	//testing(stack, stack_b, &elements_nb, &b_elements_nb);
 	free(stack);
 	free(stack_b);
 	return (0);
+}
+
+void testing(int *stack, int *stack_b, int *elements_nb, int *b_elements_nb)
+{
+	int i = 0;
+	while (i < *elements_nb)
+		printf("STACK A NUM %d : %d\n",i, stack[i]),i++;
+	i = 0;
+	printf("---------\n");
+	while (i < *b_elements_nb)
+		printf("STACK B NUM %d : %d\n",i, stack_b[i]),i++;
 }
