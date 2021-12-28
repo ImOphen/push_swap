@@ -4,7 +4,6 @@ typedef struct s_quarters{
 	int one;
 	int two;
 	int three;
-	int four;
 }	t_quarters;
 
 int is_sorted(int *stack, int elements_nb)
@@ -50,7 +49,6 @@ t_quarters sort_array_half(int *stack, int elements_nb)
 	quarters.one = tab[elements_nb / 4 - 1];
 	quarters.two = tab[elements_nb / 2 - 1];
 	quarters.three = tab[elements_nb / 4 * 3 - 1];
-	quarters.four = tab[elements_nb - 1];
 
 	// i = 0;
 	// while (i < elements_nb)
@@ -92,7 +90,6 @@ void sort(int *stack, int *stack_b, int *elements_nb, int *b_elements_nb)
 			else
 				ra(stack, *elements_nb);
 		}
-		//push_back_to_a_2(stack, stack_b, elements_nb, b_elements_nb);
 	}
 	else
 	{
