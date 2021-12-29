@@ -12,7 +12,7 @@
 
 #include "push_swap.h"
 
-#define PARTS_DEFINE 10
+#define PARTS_DEFINE 9
 
 int is_sorted(int *stack, int elements_nb)
 {
