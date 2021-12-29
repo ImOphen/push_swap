@@ -14,11 +14,11 @@
 
 void	check_for_duplicates(int *stack, int elements_nb)
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 
 	i = 0;
-	while(i < elements_nb)
+	while (i < elements_nb)
 	{
 		j = 0;
 		while (j < elements_nb)
@@ -34,19 +34,19 @@ void	check_for_duplicates(int *stack, int elements_nb)
 	}
 }
 
-int *handle_arguments(int argc, char *argv[], int *elements_nb)
+int	*handle_arguments(int argc, char *argv[], int *elements_nb)
 {
-	int *stack;
+	int	*stack;
 
 	if (argc < 2)
 		exit(1);
 	check_for_numbers(argv);
 	stack = fill_stack(argv, elements_nb);
 	check_for_duplicates(stack, *elements_nb);
-	return(stack);
+	return (stack);
 }
 
-int ft_isdigit(char c)
+int	ft_isdigit(char c)
 {
 	if (c >= '0' && c <= '9')
 		return (1);
@@ -55,15 +55,15 @@ int ft_isdigit(char c)
 
 int	ft_atoi(const char *str)
 {
-	int	i;
-	int	sign;
+	int		i;
+	int		sign;
 	long	count;
 
 	i = 0;
 	sign = 1;
 	count = 0;
 	while (str[i] == ' ' || str[i] == '\t' || str[i] == '\v'
-			|| str[i] == '\r' || str[i] == '\f' || str[i] == '\n')
+		|| str[i] == '\r' || str[i] == '\f' || str[i] == '\n')
 		i++;
 	if (str[i] == '+' || str[i] == '-')
 	{

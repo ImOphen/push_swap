@@ -12,11 +12,13 @@
 
 #include "push_swap.h"
 
-char *ft_strdup(char *str)
+char	*ft_strdup(char *str)
 {
-	char *line;
-	int i = 0;
-	while(str[i])
+	char	*line;
+	int		i;
+
+	i = 0;
+	while (str[i])
 		i++;
 	line = malloc(i + 1);
 	i = 0;
@@ -44,20 +46,24 @@ void	ft_bzero(void *s, size_t n)
 	}
 }
 
-char *get_next_line(int fd)
+char	*get_next_line(int fd)
 {
-	char line[100];
+	char	line[100];
+	int		ret;
+	char	c;
+	int		i;
+
+	i = 0;
+	ret = 1;
 	ft_bzero(line, 100);
-	int ret = 1;
-	char c;
-	int i = 0;
-	while((ret = read(fd, &c, 1) > 0))
+	while ((ret > 0))
 	{
+		ret = read(fd, &c, 1);
 		line[i++] = c;
 		if (c == '\n')
 			break ;
 	}
 	if (line[0] == 0)
-		return NULL;
+		return (NULL);
 	return (ft_strdup(line));
 }

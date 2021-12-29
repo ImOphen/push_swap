@@ -11,16 +11,12 @@
 /* ************************************************************************** */
 
 #ifndef PUSH_SWAP_H
-#define PUSH_SWAP_H
-
-#include <unistd.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <stddef.h>
-#include <limits.h>
-
-/***/
-void testing(int *stack, int *stack_b, int *elements_nb, int *b_elements_nb);
+# define PUSH_SWAP_H
+# include <unistd.h>
+# include <stdio.h>
+# include <stdlib.h>
+# include <stddef.h>
+# include <limits.h>
 
 /**** instructions ****/
 void	rrr(int *stack, int *stack_b, int elements_nb, int b_elements_nb);
@@ -52,7 +48,7 @@ char	*ft_strjoin(char const *s1, char const *s2);
 int		count_words(const char *s, char c);
 void	check_for_numbers(char **argv);
 int		next_arg(char *arguments, int j);
-void	fill_stack_with_numbers(int *stack,char *arguments,int count);
+void	fill_stack_with_numbers(int *stack, char *arguments, int count);
 char	*arguments_join(char **argv);
 int		*fill_stack(char **argv, int *elements_nb);
 void	check_for_duplicates(int *stack, int elements_nb);

@@ -83,17 +83,19 @@ int	count_words(const char *s, char c)
 	return (count);
 }
 
-void check_for_numbers(char **argv)
+void	check_for_numbers(char **argv)
 {
-	int i = 1;
-	int j;
+	int	i;
+	int	j;
 
+	i = 1;
 	while (argv[i])
 	{
 		j = 0;
 		while (argv[i][j])
 		{
-			if (argv[i][j] != ' ' && argv[i][j] != '-' && !(ft_isdigit(argv[i][j])))
+			if (argv[i][j] != ' ' && argv[i][j] != '-'
+			&& !(ft_isdigit(argv[i][j])))
 				exit_error();
 			if (argv[i][j] == '-' && !(ft_isdigit(argv[i][j + 1])))
 				exit_error();
