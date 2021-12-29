@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   checker.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: atouhami <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/12/29 10:43:45 by atouhami          #+#    #+#             */
+/*   Updated: 2021/12/29 10:43:49 by atouhami         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
 
 int	ft_strcmp(char *s1, char *s2)
@@ -78,7 +90,7 @@ int main(int argc, char *argv[])
 	stack_b = malloc(elements_nb * sizeof(int));
 	read_from_pushswap(stack, stack_b, &elements_nb, &b_elements_nb);
 	if (is_sorted(stack, elements_nb))
-		write(1,"OK", 2);
+		write(1,"OK\n", 3);
 	else
-		write(1, "KO", 2);
+		write(1, "KO\n", 3);
 }

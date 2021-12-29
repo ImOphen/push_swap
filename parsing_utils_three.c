@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parsing_utils_three.c                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: atouhami <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/12/29 10:46:05 by atouhami          #+#    #+#             */
+/*   Updated: 2021/12/29 10:46:16 by atouhami         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
 
 void	check_for_duplicates(int *stack, int elements_nb)
@@ -27,7 +39,7 @@ int *handle_arguments(int argc, char *argv[], int *elements_nb)
 	int *stack;
 
 	if (argc < 2)
-		exit_error();
+		exit(1);
 	check_for_numbers(argv);
 	stack = fill_stack(argv, elements_nb);
 	check_for_duplicates(stack, *elements_nb);
@@ -51,7 +63,7 @@ int	ft_atoi(const char *str)
 	sign = 1;
 	count = 0;
 	while (str[i] == ' ' || str[i] == '\t' || str[i] == '\v'
-		|| str[i] == '\r' || str[i] == '\f' || str[i] == '\n')
+			|| str[i] == '\r' || str[i] == '\f' || str[i] == '\n')
 		i++;
 	if (str[i] == '+' || str[i] == '-')
 	{

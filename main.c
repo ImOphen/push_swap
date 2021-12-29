@@ -1,4 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: atouhami <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/12/29 10:45:31 by atouhami          #+#    #+#             */
+/*   Updated: 2021/12/29 10:45:34 by atouhami         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
+
+#define PARTS_DEFINE 10
 
 int is_sorted(int *stack, int elements_nb)
 {
@@ -14,13 +28,13 @@ int is_sorted(int *stack, int elements_nb)
 	return(1);
 }
 
-int sort_array_half(int *stack, int elements_nb)
+int *sort_array_parts(int *stack, int elements_nb)
 {
 	int *tab;
 	int i;
 	int j;
 	int tmp;
-	int half;
+	int *parts;
 
 	i = 0;
 	tab = malloc(elements_nb * sizeof(int));
@@ -40,9 +54,15 @@ int sort_array_half(int *stack, int elements_nb)
 		}
 		i++;
 	}
-	half = tab[elements_nb / 2];
+	i = 0;
+	parts = malloc(PARTS_DEFINE * sizeof(int));
+	while(i < PARTS_DEFINE)
+	{
+		parts[i] = tab[elements_nb/PARTS_DEFINE * i];
+		i++;
+	}
 	free(tab);
-	return (half);
+	return (parts);
 }
 
 int does_have_smaller(int *stack, int elements_nb, int half)
@@ -59,7 +79,6 @@ int does_have_smaller(int *stack, int elements_nb, int half)
 	return (0);
 
 }
-
 int find_closest_biggest(int *stack, int elements_nb, int biggest)
 {
 	int i;
@@ -68,21 +87,21 @@ int find_closest_biggest(int *stack, int elements_nb, int biggest)
 
 	i = 0;
 	while(i < elements_nb)
+	{
+		if (stack[i] == biggest)
 		{
-			if (stack[i] == biggest)
-			{
-				closest = i;
-				break;
-			}
-			i++;
+			closest = i;
+			break;
 		}
+		i++;
+	}
 	while(elements_nb--)
-		{
-			if (stack[elements_nb] == biggest)
-				break;
-			rev_closest++;
+	{
+		if (stack[elements_nb] == biggest)
+			break;
+		rev_closest++;
 
-		}
+	}
 	if (closest < rev_closest)
 		return(1);
 	else
@@ -91,21 +110,20 @@ int find_closest_biggest(int *stack, int elements_nb, int biggest)
 
 void put_bigger_to_b(int *stack, int *stack_b, int *elements_nb, int *b_elements_nb)
 {
-	int half;
+	int *parts;
 
-	while(*elements_nb > 2)
+	int i;
+	i = PARTS_DEFINE;
+	parts = sort_array_parts(stack, *elements_nb);
+	while(i--)
+		while((does_have_smaller(stack, *elements_nb, parts[i])))
 		{
-			half = sort_array_half(stack, *elements_nb);
-			while((does_have_smaller(stack, *elements_nb, half)))
-			{
-				if (stack[0] < half)
-					pb(stack, stack_b, elements_nb, b_elements_nb);
-				else
-					ra(stack, *elements_nb);
-			}
+			if (stack[0] < parts[i])
+				pb(stack, stack_b, elements_nb, b_elements_nb);
+			else
+				ra(stack, *elements_nb);
 		}
-	if (stack[0] > stack[1])
-		sa(stack);
+	free(parts);
 }
 
 void sort_to_bigger(int *stack_b,int b_elements_nb)
@@ -143,18 +161,28 @@ void sort(int *stack, int *stack_b, int *elements_nb, int *b_elements_nb)
 {
 
 	if (*elements_nb < 2)
-			return ;
+		return ;
+	else if (*elements_nb == 2)
+	{
+		if(stack[0] > stack[1])
+			sa(stack);
+	}
+	else if (*elements_nb == 3)
+	{
+		if(stack[0] > stack[1])
+			sa(stack);
+		if (!(is_sorted(stack, *elements_nb)))
+			rra(stack, *elements_nb);
+		if(stack[0] > stack[1])
+			sa(stack);
+	}
 	else if (!(is_sorted(stack, *elements_nb)))
 	{
 		put_bigger_to_b(stack, stack_b, elements_nb, b_elements_nb);
 		push_back_to_a(stack, stack_b, elements_nb, b_elements_nb);
 	}
 	else
-	{
-		free(stack_b);
-		free(stack);
-		exit (1);
-	}
+		return ;
 }
 
 int main(int argc, char *argv[])
