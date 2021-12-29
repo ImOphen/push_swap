@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   checker.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atouhami <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: momayaz <momayaz@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/29 10:43:45 by atouhami          #+#    #+#             */
-/*   Updated: 2021/12/29 10:43:49 by atouhami         ###   ########.fr       */
+/*   Updated: 2021/12/29 18:23:46 by momayaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,55 +42,65 @@ int	is_sorted(int *stack, int elements_nb)
 	return (1);
 }
 
-void	read_from_pushswap(int *stack, int *stack_b, int *elements_nb, int *b_elements_nb)
+void	ft_check_cmd(char *cmd)
 {
-	char	*line;
-
-	line = get_next_line(0);
-	while (line != NULL)
+	if (ft_strcmp(cmd, "sa\n") && ft_strcmp(cmd, "sb\n")
+		&& ft_strcmp(cmd, "ss\n") && ft_strcmp(cmd, "pa\n")
+		&& ft_strcmp(cmd, "pb\n") && ft_strcmp(cmd, "ra\n")
+		&& ft_strcmp(cmd, "rb\n") && ft_strcmp(cmd, "rr\n")
+		&& ft_strcmp(cmd, "rra\n") && ft_strcmp(cmd, "rrb\n")
+		&& ft_strcmp(cmd, "rrr\n"))
 	{
-		if (!ft_strcmp(line, "pa\n"))
-			pa(stack, stack_b, elements_nb, b_elements_nb);
-		else if (!ft_strcmp(line, "pb\n"))
-			pb(stack, stack_b, elements_nb, b_elements_nb);
-		else if (!ft_strcmp(line, "ss\n"))
-			ss(stack, stack_b);
-		else if (!ft_strcmp(line, "ra\n"))
-			ra(stack, *elements_nb);
-		else if (!ft_strcmp(line, "rb\n"))
-			rb(stack_b, *b_elements_nb);
-		else if (!ft_strcmp(line, "rr\n"))
-			rr(stack, stack_b, *elements_nb, *b_elements_nb);
-		else if (!ft_strcmp(line, "rrr\n"))
-			rrr(stack, stack_b, *elements_nb, *b_elements_nb);
-		else if (!ft_strcmp(line, "rrb\n"))
-			rrb(stack_b, *b_elements_nb);
-		else if (!ft_strcmp(line, "rra\n"))
-			rra(stack, *elements_nb);
-		else if (!ft_strcmp(line, "sa\n"))
-			sa(stack);
-		else if (!ft_strcmp(line, "sb\n"))
-			sb(stack_b);
-		else
-		{
-			exit_error();
-		}
-		free(line);
-		line = get_next_line(0);
+		write(1, "Error\n", 6);
+		exit(0);
 	}
+}
+
+void	read_from_pushswap(int *stack, int *stack_b, int *elements_nb,
+			int *b_elements_nb, char *line)
+{
+	if (!ft_strcmp(line, "pa\n"))
+		pa(stack, stack_b, elements_nb, b_elements_nb);
+	else if (!ft_strcmp(line, "pb\n"))
+		pb(stack, stack_b, elements_nb, b_elements_nb);
+	else if (!ft_strcmp(line, "ss\n"))
+		ss(stack, stack_b);
+	else if (!ft_strcmp(line, "ra\n"))
+		ra(stack, *elements_nb);
+	else if (!ft_strcmp(line, "rb\n"))
+		rb(stack_b, *b_elements_nb);
+	else if (!ft_strcmp(line, "rr\n"))
+		rr(stack, stack_b, *elements_nb, *b_elements_nb);
+	else if (!ft_strcmp(line, "rrr\n"))
+		rrr(stack, stack_b, *elements_nb, *b_elements_nb);
+	else if (!ft_strcmp(line, "rrb\n"))
+		rrb(stack_b, *b_elements_nb);
+	else if (!ft_strcmp(line, "rra\n"))
+		rra(stack, *elements_nb);
+	else if (!ft_strcmp(line, "sa\n"))
+		sa(stack);
+	else if (!ft_strcmp(line, "sb\n"))
+		sb(stack_b);
 }
 
 int	main(int argc, char *argv[])
 {
-	int	*stack;
-	int	elements_nb;
-	int	*stack_b;
-	int	b_elements_nb;
+	int		*stack;
+	int		elements_nb;
+	int		*stack_b;
+	int		b_elements_nb;
+	char	*line;
 
 	b_elements_nb = 0;
 	stack = handle_arguments(argc, argv, &elements_nb);
 	stack_b = malloc(elements_nb * sizeof(int));
-	read_from_pushswap(stack, stack_b, &elements_nb, &b_elements_nb);
+	line = get_next_line(0);
+	while (line)
+	{
+		read_from_pushswap(stack, stack_b, &elements_nb, &b_elements_nb, line);
+		free(line);
+		line = get_next_line(0);
+	}
 	if (is_sorted(stack, elements_nb))
 		write(1, "OK\n", 3);
 	else

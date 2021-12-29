@@ -56,4 +56,6 @@ int		*handle_arguments(int argc, char *argv[], int *elements_nb);
 
 /***** checker utils *****/
 char	*get_next_line(int fd);
+void	ft_bzero(void *s, size_t n);
+
 #endif
