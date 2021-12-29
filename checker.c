@@ -42,7 +42,7 @@ int	is_sorted(int *stack, int elements_nb)
 	return (1);
 }
 
-void read_from_pushswap(int *stack, int *stack_b, int *elements_nb, int *b_elements_nb)
+void	read_from_pushswap(int *stack, int *stack_b, int *elements_nb, int *b_elements_nb)
 {
 	char	*line;
 
@@ -55,10 +55,6 @@ void read_from_pushswap(int *stack, int *stack_b, int *elements_nb, int *b_eleme
 			pb(stack, stack_b, elements_nb, b_elements_nb);
 		else if (!ft_strcmp(line, "ss\n"))
 			ss(stack, stack_b);
-		else if (!ft_strcmp(line, "sa\n"))
-			sa(stack);
-		else if (!ft_strcmp(line, "sb\n"))
-			sb(stack_b);
 		else if (!ft_strcmp(line, "ra\n"))
 			ra(stack, *elements_nb);
 		else if (!ft_strcmp(line, "rb\n"))
@@ -71,8 +67,14 @@ void read_from_pushswap(int *stack, int *stack_b, int *elements_nb, int *b_eleme
 			rrb(stack_b, *b_elements_nb);
 		else if (!ft_strcmp(line, "rra\n"))
 			rra(stack, *elements_nb);
+		else if (!ft_strcmp(line, "sa\n"))
+			sa(stack);
+		else if (!ft_strcmp(line, "sb\n"))
+			sb(stack_b);
 		else
+		{
 			exit_error();
+		}
 		free(line);
 		line = get_next_line(0);
 	}

@@ -75,7 +75,7 @@ int	*fill_stack(char **argv, int *elements_nb)
 	count = count_words(arguments, ' ');
 	stack = malloc(count * sizeof(int));
 	if (!stack)
-		exit_error();
+		exit(1);
 	fill_stack_with_numbers(stack, arguments, count);
 	free(arguments);
 	*elements_nb = count;

@@ -165,7 +165,7 @@ void	sort(int *stack, int *stack_b, int *elements_nb, int *b_elements_nb)
 	else if (*elements_nb == 2)
 	{
 		if (stack[0] > stack[1])
-			sa(stack);
+			ra(stack, 2);
 	}
 	else if (*elements_nb == 3)
 	{
