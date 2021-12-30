@@ -93,10 +93,9 @@ int	main(int argc, char *argv[])
 	stack = handle_arguments(argc, argv, &(el.elements_nb));
 	stack_b = malloc(el.elements_nb * sizeof(int));
 	line = get_next_line(0);
-	while (line)
+	while (line && line[0] != '\n')
 	{
-		if (line[0] != '\n')
-			read_from_pushswap(stack, stack_b, &el, line);
+		read_from_pushswap(stack, stack_b, &el, line);
 		free(line);
 		line = get_next_line(0);
 	}
