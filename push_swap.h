@@ -18,6 +18,13 @@
 # include <stddef.h>
 # include <limits.h>
 
+# define PARTS_DEFINE 9
+
+typedef struct s_elements_nb{
+	int	elements_nb;
+	int	b_elements_nb;
+}	t_el_nb;
+
 /**** instructions ****/
 void	rrr(int *stack, int *stack_b, int elements_nb, int b_elements_nb);
 void	rr(int *stack, int *stack_b, int elements_nb, int b_elements_nb);
@@ -53,6 +60,15 @@ char	*arguments_join(char **argv);
 int		*fill_stack(char **argv, int *elements_nb);
 void	check_for_duplicates(int *stack, int elements_nb);
 int		*handle_arguments(int argc, char *argv[], int *elements_nb);
+
+/**** sorting utils ****/
+int		is_sorted(int *stack, int elements_nb);
+int		*sort_array_parts(int *stack, int elements_nb);
+int		does_have_smaller(int *stack, int elements_nb, int half);
+int		find_closest_biggest(int *stack, int elements_nb, int biggest);
+void	put_bigger_to_b(int *stack, int *stack_b,
+			int *elements_nb, int *b_elements_nb);
+void	bubble_sort(int elements_nb, int *tab);
 
 /***** checker utils *****/
 char	*get_next_line(int fd);

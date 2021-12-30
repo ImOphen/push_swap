@@ -1,5 +1,5 @@
 CSRC = instructions_core.c parsing_utils_three.c parsing_utils_two.c parsing_utils.c
-PUSH_SWAP_SRC = $(CSRC) main.c instructions_one.c instructions_two.c instructions_three.c
+PUSH_SWAP_SRC = $(CSRC) main.c instructions_one.c instructions_two.c instructions_three.c sorting_utils.c sorting_utils_2.c
 CHECKER_SRC = $(CSRC) checker.c get_next_line.c checker_instructions.c checker_instructions_two.c checker_instructions_three.c
 PUSH_SWAP_OBJ = $(PUSH_SWAP_SRC:%.c=%.o)
 CHECKER_OBJ = $(CHECKER_SRC:%.c=%.o)

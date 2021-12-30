@@ -56,27 +56,26 @@ void	ft_check_cmd(char *cmd)
 	}
 }
 
-void	read_from_pushswap(int *stack, int *stack_b, int *elements_nb,
-			int *b_elements_nb, char *line)
+void	read_from_pushswap(int *stack, int *stack_b, t_el_nb *el, char *line)
 {
 	if (!ft_strcmp(line, "pa\n"))
-		pa(stack, stack_b, elements_nb, b_elements_nb);
+		pa(stack, stack_b, &el->elements_nb, &el->b_elements_nb);
 	else if (!ft_strcmp(line, "pb\n"))
-		pb(stack, stack_b, elements_nb, b_elements_nb);
+		pb(stack, stack_b, &el->elements_nb, &el->b_elements_nb);
 	else if (!ft_strcmp(line, "ss\n"))
 		ss(stack, stack_b);
 	else if (!ft_strcmp(line, "ra\n"))
-		ra(stack, *elements_nb);
+		ra(stack, el->elements_nb);
 	else if (!ft_strcmp(line, "rb\n"))
-		rb(stack_b, *b_elements_nb);
+		rb(stack_b, el->b_elements_nb);
 	else if (!ft_strcmp(line, "rr\n"))
-		rr(stack, stack_b, *elements_nb, *b_elements_nb);
+		rr(stack, stack_b, el->elements_nb, el->b_elements_nb);
 	else if (!ft_strcmp(line, "rrr\n"))
-		rrr(stack, stack_b, *elements_nb, *b_elements_nb);
+		rrr(stack, stack_b, el->elements_nb, el->b_elements_nb);
 	else if (!ft_strcmp(line, "rrb\n"))
-		rrb(stack_b, *b_elements_nb);
+		rrb(stack_b, el->b_elements_nb);
 	else if (!ft_strcmp(line, "rra\n"))
-		rra(stack, *elements_nb);
+		rra(stack, el->elements_nb);
 	else if (!ft_strcmp(line, "sa\n"))
 		sa(stack);
 	else if (!ft_strcmp(line, "sb\n"))
@@ -86,22 +85,22 @@ void	read_from_pushswap(int *stack, int *stack_b, int *elements_nb,
 int	main(int argc, char *argv[])
 {
 	int		*stack;
-	int		elements_nb;
 	int		*stack_b;
-	int		b_elements_nb;
+	t_el_nb	el;
 	char	*line;
 
-	b_elements_nb = 0;
-	stack = handle_arguments(argc, argv, &elements_nb);
-	stack_b = malloc(elements_nb * sizeof(int));
+	el.b_elements_nb = 0;
+	stack = handle_arguments(argc, argv, &(el.elements_nb));
+	stack_b = malloc(el.elements_nb * sizeof(int));
 	line = get_next_line(0);
 	while (line)
 	{
-		read_from_pushswap(stack, stack_b, &elements_nb, &b_elements_nb, line);
+		if (line[0] != '\n')
+			read_from_pushswap(stack, stack_b, &el, line);
 		free(line);
 		line = get_next_line(0);
 	}
-	if (is_sorted(stack, elements_nb))
+	if (is_sorted(stack, el.elements_nb))
 		write(1, "OK\n", 3);
 	else
 		write(1, "KO\n", 3);
