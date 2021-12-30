@@ -81,6 +81,8 @@ int	main(int argc, char *argv[])
 	b_elements_nb = 0;
 	stack = handle_arguments(argc, argv, &elements_nb);
 	stack_b = malloc(elements_nb * sizeof(int));
+	if (!stack_b)
+		exit(1);
 	sort(stack, stack_b, &elements_nb, &b_elements_nb);
 	free(stack);
 	free(stack_b);

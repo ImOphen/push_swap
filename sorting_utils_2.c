@@ -39,6 +39,8 @@ void	put_five_to_b(int *stack, int *stack_b,
 	int	*tab;
 
 	tab = malloc(*elements_nb * sizeof(int));
+	if (!tab)
+		exit(1);
 	ft_memmove_int(tab, stack, *elements_nb);
 	bubble_sort(*elements_nb, tab);
 	while (*elements_nb != 2)

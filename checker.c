@@ -42,20 +42,6 @@ int	is_sorted(int *stack, int elements_nb)
 	return (1);
 }
 
-void	ft_check_cmd(char *cmd)
-{
-	if (ft_strcmp(cmd, "sa\n") && ft_strcmp(cmd, "sb\n")
-		&& ft_strcmp(cmd, "ss\n") && ft_strcmp(cmd, "pa\n")
-		&& ft_strcmp(cmd, "pb\n") && ft_strcmp(cmd, "ra\n")
-		&& ft_strcmp(cmd, "rb\n") && ft_strcmp(cmd, "rr\n")
-		&& ft_strcmp(cmd, "rra\n") && ft_strcmp(cmd, "rrb\n")
-		&& ft_strcmp(cmd, "rrr\n"))
-	{
-		write(1, "Error\n", 6);
-		exit(0);
-	}
-}
-
 void	read_from_pushswap(int *stack, int *stack_b, t_el_nb *el, char *line)
 {
 	if (!ft_strcmp(line, "pa\n"))
@@ -92,6 +78,8 @@ int	main(int argc, char *argv[])
 	el.b_elements_nb = 0;
 	stack = handle_arguments(argc, argv, &(el.elements_nb));
 	stack_b = malloc(el.elements_nb * sizeof(int));
+	if (!stack_b)
+		exit(1);
 	line = get_next_line(0);
 	while (line && line[0] != '\n')
 	{

@@ -28,6 +28,8 @@ void	rotate(int *stack, int elements_nb)
 
 	i = 0;
 	tmp = malloc(elements_nb * sizeof(int));
+	if (!tmp)
+		exit(1);
 	while (i < elements_nb - 1)
 	{
 		tmp[i] = stack[i + 1];
@@ -45,6 +47,8 @@ void	reverse_rotate(int *stack, int elements_nb)
 
 	i = 0;
 	tmp = malloc(elements_nb * sizeof(int));
+	if (!tmp)
+		exit(1);
 	while (i < elements_nb - 1)
 	{
 		tmp[i + 1] = stack[i];

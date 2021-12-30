@@ -57,10 +57,14 @@ int	*sort_array_parts(int *stack, int elements_nb)
 	int	i;
 
 	tab = malloc(elements_nb * sizeof(int));
+	if (!tab)
+		exit(1);
 	ft_memmove_int(tab, stack, elements_nb);
 	bubble_sort(elements_nb, tab);
 	i = 0;
 	parts = malloc(PARTS_DEFINE * sizeof(int));
+	if (!parts)
+		exit(1);
 	while (i < PARTS_DEFINE)
 	{
 		parts[i] = tab[elements_nb / PARTS_DEFINE * i];
