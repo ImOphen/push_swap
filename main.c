@@ -63,11 +63,12 @@ void	sort(int *stack, int *stack_b, int *elements_nb, int *b_elements_nb)
 	}
 	else if (!(is_sorted(stack, *elements_nb)))
 	{
-		put_bigger_to_b(stack, stack_b, elements_nb, b_elements_nb);
+		if (*elements_nb == 5)
+			put_five_to_b(stack, stack_b, elements_nb, b_elements_nb);
+		else
+			put_bigger_to_b(stack, stack_b, elements_nb, b_elements_nb);
 		push_back_to_a(stack, stack_b, elements_nb, b_elements_nb);
 	}
-	else
-		return ;
 }
 
 int	main(int argc, char *argv[])

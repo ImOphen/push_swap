@@ -69,7 +69,8 @@ int		find_closest_biggest(int *stack, int elements_nb, int biggest);
 void	put_bigger_to_b(int *stack, int *stack_b,
 			int *elements_nb, int *b_elements_nb);
 void	bubble_sort(int elements_nb, int *tab);
-
+void	put_five_to_b(int *stack, int *stack_b,
+			int *elements_nb, int *b_elements_nb);
 /***** checker utils *****/
 char	*get_next_line(int fd);
 void	ft_bzero(void *s, size_t n);
