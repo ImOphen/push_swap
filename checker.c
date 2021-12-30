@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   checker.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: momayaz <momayaz@student.42.fr>            +#+  +:+       +#+        */
+/*   By: atouhami <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/29 10:43:45 by atouhami          #+#    #+#             */
-/*   Updated: 2021/12/29 18:23:46 by momayaz          ###   ########.fr       */
+/*   Created: 2021/12/30 17:48:44 by atouhami          #+#    #+#             */
+/*   Updated: 2021/12/30 17:48:48 by atouhami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,8 @@ void	read_from_pushswap(int *stack, int *stack_b, t_el_nb *el, char *line)
 		sa(stack);
 	else if (!ft_strcmp(line, "sb\n"))
 		sb(stack_b);
+	else
+		exit_error();
 }
 
 int	main(int argc, char *argv[])
@@ -91,4 +93,6 @@ int	main(int argc, char *argv[])
 		write(1, "OK\n", 3);
 	else
 		write(1, "KO\n", 3);
+	free(stack_b);
+	free(stack);
 }
